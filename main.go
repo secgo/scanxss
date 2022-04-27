@@ -31,7 +31,7 @@ func main() {
 		`)
 		os.Exit(0)
 	}
-	ExtractLink("http://testphp.vulnweb.com/")
+	ExtractLink(domain)
 	fmt.Println("please wite...")
 	time.Sleep(time.Second * 2)
 	fmt.Printf("\n\n\n\n")
