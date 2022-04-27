@@ -18,14 +18,16 @@ import (
 
 var LinksParam = []string{}
 var wg sync.WaitGroup
-var domain string
+var domain, payloadpath string
 
 func main() {
 	flag.StringVar(&domain, "u", "", "add url http://testphp.vulnweb.com/")
+	flag.StringVar(&payloadpath, "p", "", "add payload.txt ex: /home/user/payload.txt")
 	flag.Parse()
-	if domain == "" {
+	if domain == "" || payloadpath == "" {
 		fmt.Println(`
-		-u enter domain Hint: [http://testphp.vulnweb.com]
+		-u 	enter domain Hint: [http://testphp.vulnweb.com]
+		-p	path payload.txt
 		`)
 		os.Exit(0)
 	}
@@ -45,7 +47,7 @@ func main() {
 func xssCheck(u string) {
 	re := regexp.MustCompile(`Error|mysql|Unknown column`)
 	defer wg.Done()
-	f, err := os.Open("payload.txt")
+	f, err := os.Open(payloadpath)
 	if err != nil {
 		panic(err)
 	}
